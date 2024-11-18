@@ -1,5 +1,5 @@
 from math import pi, cos
-from PIL import Image, ImageDraw, ImageFont, ImageSequence
+from PIL import Image, ImageDraw, ImageFont
 import numpy as np
 
 # Function to apply mosaic effect
@@ -30,14 +30,13 @@ def add_reverse_and_loop(frames):
     return full_frames
 
 # Main function to create the GIF
-def Brat(text, start_pixel_size, end_pixel_size, fps, seconds, output_path="mosaic_animation.gif"):
+def Brat(text, start_pixel_size, end_pixel_size, fps, seconds, bg_color, text_color, output_path="mosaic_animation.gif"):
     # Parameters for the GIF
     num_frames = fps * seconds
 
     # Create the base image
     image_size = (500, 500)
-    background_color = "#89CC04"
-    image = Image.new("RGB", image_size, background_color)
+    image = Image.new("RGB", image_size, bg_color)  # Use input background color
 
     # Prepare to draw text
     draw = ImageDraw.Draw(image)
@@ -56,7 +55,7 @@ def Brat(text, start_pixel_size, end_pixel_size, fps, seconds, output_path="mosa
     text_position = ((image_size[0] - text_width) // 2, (image_size[1] - text_height) // 2)
 
     # Draw the text on the image
-    draw.text(text_position, text, fill="black", font=font)
+    draw.text(text_position, text, fill=text_color, font=font)  # Use input text color
 
     # Stretch the image to create the "stretched" effect
     stretched_image = image.resize((500, 700))  # Stretch horizontally
@@ -89,13 +88,17 @@ def Brat(text, start_pixel_size, end_pixel_size, fps, seconds, output_path="mosa
 
 if __name__ == "__main__":
     # The text to display on the GIF
-    text = "what"  # Input text (e.g., emoji, words, etc.)
+    text = "fuck"  # Input text (e.g., emoji, words, etc.)
 
     # Parameters for the animation
     start_pixel_size = 1  # The starting size of the mosaic pixels
     end_pixel_size = 22  # The ending size of the mosaic pixels
     fps = 120  # Frames per second for the GIF
     seconds = 2  # Total duration of the animation in seconds
+
+    # Colors for background and text
+    bg_color = "#89CC04"  # Background color (hex code or RGB tuple)
+    text_color = "black"  # Text color (hex code or RGB tuple)
 
     # Clean the input text to make it a valid filename
     # Replace any invalid characters (like ':', '?', etc.) with an underscore '_'
@@ -109,7 +112,7 @@ if __name__ == "__main__":
         end_pixel_size,  # Ending pixel size for the mosaic effect
         fps,  # Frames per second for the animation
         seconds,  # Duration of the animation in seconds
+        bg_color,  # Background color
+        text_color,  # Text color
         output_path=f"GIF/{valid_text}.gif"  # Path to save the resulting GIF
     )
-
-
