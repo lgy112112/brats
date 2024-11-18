@@ -88,9 +88,28 @@ def Brat(text, start_pixel_size, end_pixel_size, fps, seconds, output_path="mosa
 
 
 if __name__ == "__main__":
-    text = "XCX"  # Text to display
-    start_pixel_size = 1
-    end_pixel_size = 22
-    fps = 120
-    seconds = 2
-    Brat(text, start_pixel_size, end_pixel_size, fps, seconds, output_path=f"{text}.gif")
+    # The text to display on the GIF
+    text = ":)"  # Input text (e.g., emoji, words, etc.)
+
+    # Parameters for the animation
+    start_pixel_size = 1  # The starting size of the mosaic pixels
+    end_pixel_size = 22  # The ending size of the mosaic pixels
+    fps = 120  # Frames per second for the GIF
+    seconds = 2  # Total duration of the animation in seconds
+
+    # Clean the input text to make it a valid filename
+    # Replace any invalid characters (like ':', '?', etc.) with an underscore '_'
+    valid_text = "".join(c if c.isalnum() or c in (" ", "-", "_") else "_" for c in text)
+    
+    # Call the Brat function to generate the GIF
+    # The output path will use the cleaned filename (e.g., "GIF/__.gif" for ":)")
+    Brat(
+        text,  # The text to display
+        start_pixel_size,  # Starting pixel size for the mosaic effect
+        end_pixel_size,  # Ending pixel size for the mosaic effect
+        fps,  # Frames per second for the animation
+        seconds,  # Duration of the animation in seconds
+        output_path=f"GIF/{valid_text}.gif"  # Path to save the resulting GIF
+    )
+
+
