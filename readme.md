@@ -18,12 +18,12 @@
       <img src="GIF/brat.gif" style="width: 100%; max-width: 300px;" />
     </td>
     <td align="center">
-      <img src="GIF/love.gif" style="width: 100%; max-width: 300px;" />
+      <img src="GIF/vagiana.gif" style="width: 100%; max-width: 300px;" />
     </td>
   </tr>
   <tr>
     <td align="center">
-      <img src="GIF/puxxy.gif" style="width: 100%; max-width: 300px;" />
+      <img src="GIF/pussy.gif" style="width: 100%; max-width: 300px;" />
     </td>
     <td align="center">
       <img src="GIF/shit.gif" style="width: 100%; max-width: 300px;" />
