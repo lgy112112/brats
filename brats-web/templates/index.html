@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mosaic GIF Generator</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding-top: 50px;
+            background-image: url('/static/brat.gif'); /* Default background image */
+            background-size: auto; /* Updated for tiled effect */
+            background-repeat: repeat; /* Tiling effect */
+            background-position: center;
+        }
+        .container {
+            max-width: 600px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2 class="text-center mb-4">brat generator</h2>
+    <form id="gifForm">
+        <div class="form-group">
+            <label for="text">Text</label>
+            <input type="text" class="form-control" id="text" name="text" placeholder="Enter text for GIF" value="brat" required>
+        </div>
+        <div class="form-group">
+            <label for="start_pixel_size">Start Pixel Size</label>
+            <input type="number" class="form-control" id="start_pixel_size" name="start_pixel_size" min="1" value="1" required>
+        </div>
+        <div class="form-group">
+            <label for="end_pixel_size">End Pixel Size</label>
+            <input type="number" class="form-control" id="end_pixel_size" name="end_pixel_size" min="1" value="22" required>
+        </div>
+        <div class="form-group">
+            <label for="fps">Frames Per Second (FPS)</label>
+            <input type="number" class="form-control" id="fps" name="fps" min="1" value="120" required>
+        </div>
+        <div class="form-group">
+            <label for="seconds">Duration (Seconds)</label>
+            <input type="number" class="form-control" id="seconds" name="seconds" min="1" value="2" required>
+        </div>
+        <div class="form-group">
+            <label for="bg_color">Background Color</label>
+            <input type="color" class="form-control" id="bg_color" name="bg_color" value="#89CC04" required>
+        </div>
+        <div class="form-group">
+            <label for="text_color">Text Color</label>
+            <input type="color" class="form-control" id="text_color" name="text_color" value="#000000" required>
+        </div>
+        <button type="submit" class="btn btn-secondary btn-block">Generate and Download GIF</button>
+    </form>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+    let debounceTimer;
+
+    function updateBackground() {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => {
+            const text = document.getElementById('text').value;
+            const startPixelSize = document.getElementById('start_pixel_size').value;
+            const endPixelSize = document.getElementById('end_pixel_size').value;
+            const fps = document.getElementById('fps').value;
+            const seconds = document.getElementById('seconds').value;
+            const bgColor = document.getElementById('bg_color').value;
+            const textColor = document.getElementById('text_color').value;
+
+            // Construct the URL to request the GIF
+            const params = new URLSearchParams({
+                text: text,
+                start_pixel_size: startPixelSize,
+                end_pixel_size: endPixelSize,
+                fps: fps,
+                seconds: seconds,
+                bg_color: bgColor,
+                text_color: textColor
+            });
+
+            const gifUrl = `/preview_gif?${params.toString()}`;
+
+            // Set the GIF as the tiled background of the body
+            document.body.style.backgroundImage = `url(${gifUrl})`;
+        }, 600);  // 300ms debounce delay
+    }
+
+    // Add event listeners to update the background in real-time
+    document.getElementById('text').addEventListener('input', updateBackground);
+    document.getElementById('start_pixel_size').addEventListener('input', updateBackground);
+    document.getElementById('end_pixel_size').addEventListener('input', updateBackground);
+    document.getElementById('fps').addEventListener('input', updateBackground);
+    document.getElementById('seconds').addEventListener('input', updateBackground);
+    document.getElementById('bg_color').addEventListener('input', updateBackground);
+    document.getElementById('text_color').addEventListener('input', updateBackground);
+</script>
+</body>
+</html>
